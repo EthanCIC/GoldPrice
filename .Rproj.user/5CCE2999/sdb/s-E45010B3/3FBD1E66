@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "rm(list=ls(all=TRUE))\nlibrary(XML)\nlibrary(bitops)\nlibrary(RCurl)\nlibrary(httr)\n\nalldata = data.frame()\n\nstartYear = 2015\nendYear = 2016\ntempY = startYear:endYear\n\norgURL1 = 'http://www.gck99.com.tw/gold1.php?yy='\norgURL2 = '&mm='\n\nfor (y in tempY) \n{\n  orgURL <- paste(orgURL1, y, orgURL2, sep = \"\")\n\n  #orgURL = 'http://www.gck99.com.tw/gold1.php?yy=2015&mm='\n  \n  startPage = 1\n  endPage = 12\n  \n  temp = startPage:endPage\n  strid = sprintf(\"%02d\", temp)\n  \n  for( i in startPage:endPage)\n  {\n      goldURL <- paste(orgURL, strid[i], sep='')\n      urlExists = url.exists(goldURL)\n      \n      if(urlExists)\n      {\n        html = getURL(goldURL, ssl.verifypeer = FALSE)\n        xml = htmlParse(html, encoding ='utf-8')\n        datetemp = xpathSApply(xml, \"//tr[@class='main_1']//td[1]\", xmlValue)\n        date = substr(datetemp,1,10)\n        price = xpathSApply(xml, \"//tr[@class='main_1']//td[2]\", xmlValue)\n        tempdata = data.frame(date, price)\n      }\n      alldata = rbind(alldata, tempdata)\n  }\n}\n\nwrite.csv(alldata,\"goldPrice.csv\")",
+    "created" : 1470838034070.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3617673826",
+    "id" : "3FBD1E66",
+    "lastKnownWriteTime" : 1470845926,
+    "last_content_update" : 1470845926775,
+    "path" : "E:/Coding/GitHub/GoldPrice/GoldPrice.R",
+    "project_path" : "GoldPrice.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

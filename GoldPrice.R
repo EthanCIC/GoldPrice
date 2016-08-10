@@ -14,7 +14,7 @@ orgURL1 = 'http://www.gck99.com.tw/gold1.php?yy='
 orgURL2 = '&mm='
 
 for (y in tempY) 
-  {
+{
   orgURL <- paste(orgURL1, y, orgURL2, sep = "")
 
   #orgURL = 'http://www.gck99.com.tw/gold1.php?yy=2015&mm='
@@ -26,7 +26,7 @@ for (y in tempY)
   strid = sprintf("%02d", temp)
   
   for( i in startPage:endPage)
-    {
+  {
       goldURL <- paste(orgURL, strid[i], sep='')
       urlExists = url.exists(goldURL)
       
@@ -40,7 +40,7 @@ for (y in tempY)
         tempdata = data.frame(date, price)
       }
       alldata = rbind(alldata, tempdata)
-    }
   }
+}
 
 write.csv(alldata,"goldPrice.csv")
