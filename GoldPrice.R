@@ -4,42 +4,25 @@ library(bitops)
 library(RCurl)
 library(httr)
 
-orgURL1 = 'http://www.gck99.com.tw/gold1.php?yy=2015&mm=0'
+orgURL = 'http://www.gck99.com.tw/gold1.php?yy=2015&mm='
 
 startPage = 1
-endPage = 9
+endPage = 12
 alldata = data.frame()
+temp = startPage:endPage
+strid = sprintf("%02d", temp)
+
 for( i in startPage:endPage)
 {
-  goldURL1 <- paste(orgURL1, i, sep='')
+  goldURL <- paste(orgURL, strid[i], sep='')
   urlExists = url.exists(goldURL)
   
   if(urlExists)
   {
-    html = getURL(goldURL1, ssl.verifypeer = FALSE)
+    html = getURL(goldURL, ssl.verifypeer = FALSE)
     xml = htmlParse(html, encoding ='utf-8')
-    date = xpathSApply(xml, "//tr[@class='main_1']//td[1]", xmlValue)
-    price = xpathSApply(xml, "//tr[@class='main_1']//td[2]", xmlValue)
-    tempdata = data.frame(date, price)
-  }
-  alldata = rbind(alldata, tempdata)
-}
-
-orgURL2 = 'http://www.gck99.com.tw/gold1.php?yy=2015&mm='
-
-startPage = 10
-endPage = 12
-alldata = data.frame()
-for( i in startPage:endPage)
-{
-  goldURL2 <- paste(orgURL2, i, sep='')
-  urlExists = url.exists(goldURL2)
-  
-  if(urlExists)
-  {
-    html = getURL(goldURL2, ssl.verifypeer = FALSE)
-    xml = htmlParse(html, encoding ='utf-8')
-    date = xpathSApply(xml, "//tr[@class='main_1']//td[1]", xmlValue)
+    datetemp = xpathSApply(xml, "//tr[@class='main_1']//td[1]", xmlValue)
+    date = substr(datetemp,1,10)
     price = xpathSApply(xml, "//tr[@class='main_1']//td[2]", xmlValue)
     tempdata = data.frame(date, price)
   }
