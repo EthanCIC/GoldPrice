@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "rm(list=ls(all=TRUE))\nlibrary(XML)\nlibrary(bitops)\nlibrary(RCurl)\nlibrary(httr)\n\norgURL1 = 'http://www.cbc.gov.tw/lp.asp?CtNode=645&CtUnit=308&BaseDSD=32&mp=1&nowPage='\norgURL2 = '&pagesize=50'\nstartPage = 1\nendPage = 8\nalldata = data.frame()\ntemp = startPage:endPage\n\nfor( i in startPage:endPage)\n{\n  usdURL <- paste(orgURL1, i, orgURL2, sep='')\n  urlExists = url.exists(usdURL)\n  \n  if(urlExists)\n  {\n    html = getURL(usdURL, ssl.verifypeer = FALSE)\n    xml = htmlParse(html, encoding ='utf-8')\n    datetemp = xpathSApply(xml, \"//td[1]\", xmlValue)\n    date = datetemp[-1]\n    usdtemp = xpathSApply(xml, \"//td[2]\", xmlValue)\n    usd = usdtemp[-1]\n    tempdata = data.frame(date, usd)\n  }\n  alldata = rbind(alldata, tempdata)\n}\n\nwrite.csv(alldata,\"USDollar.csv\")",
+    "created" : 1470839162500.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2072890485",
+    "id" : "1D9F47C5",
+    "lastKnownWriteTime" : 1470839102,
+    "last_content_update" : 1470839102,
+    "path" : "E:/Coding/GitHub/GoldPrice/USDollar.R",
+    "project_path" : "USDollar.R",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
