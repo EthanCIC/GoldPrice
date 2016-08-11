@@ -16,9 +16,9 @@ if(urlExists)
   xml = htmlParse(html, encoding ='utf-8')
   datetemp = xpathSApply(xml, "//td[1]", xmlValue)
   date = datetemp[-1]
-  usdtemp = xpathSApply(xml, "//td[2]", xmlValue)
-  usd = usdtemp[-1]
-  tempdata = data.frame(date, usd)
+  fxrtemp = xpathSApply(xml, "//td[2]", xmlValue)
+  fxr = fxrtemp[-1]
+  tempdata = data.frame(date, fxr)
 }
 alldata = rbind(alldata, tempdata)
 
