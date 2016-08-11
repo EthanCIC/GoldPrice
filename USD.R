@@ -22,11 +22,11 @@ for( i in startPage:endPage)
     xml = htmlParse(html, encoding ='utf-8')
     datetemp = xpathSApply(xml, "//td[1]", xmlValue)
     date = datetemp[-1]
-    usdtemp = xpathSApply(xml, "//td[2]", xmlValue)
-    usd = usdtemp[-1]
-    tempdata = data.frame(date, usd)
+    USDtemp = xpathSApply(xml, "//td[2]", xmlValue)
+    USD = USDtemp[-1]
+    tempdata = data.frame(date, USD)
   }
   alldata = rbind(alldata, tempdata)
 }
 
-write.csv(alldata,"USDollar.csv")
+write.csv(alldata,"USD.csv")
