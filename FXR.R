@@ -22,4 +22,4 @@ if(urlExists)
 }
 alldata = rbind(alldata, tempdata)
 
-write.csv(alldata,"FXR.csv")
+write.csv(alldata,"FXR.csv", row.names = FALSE)

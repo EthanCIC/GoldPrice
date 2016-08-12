@@ -29,4 +29,4 @@ for( i in startPage:endPage)
   alldata = rbind(alldata, tempdata)
 }
 
-write.csv(alldata,"USD.csv")
+write.csv(alldata,"USD.csv", row.names = FALSE)
